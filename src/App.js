@@ -1,8 +1,10 @@
 import './App.css';
-import React,{ useEffect, useState } from 'react'
-import Products from './components/Products/Products'
-import Navbar from './components/Navbar/Navbar'
-import {commerce} from './lib/commerce'
+import React,{ useEffect, useState } from 'react';
+import Products from './components/Products/Products';
+import Navbar from './components/Navbar/Navbar';
+import {commerce} from './lib/commerce';
+import Cart from './components/Cart/Cart';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 function App() {
     const[products , setProducts] = useState([]);
@@ -26,10 +28,22 @@ function App() {
         fetchCart()
     },[])
     return (
-        <div>
+        <Router>
+         <div>
             <Navbar cart={cart} />
-            <Products products={products} onaddCart={handleaddtoCart}/>
-        </div>
+             <Switch>
+
+               <Route exact path="/">
+                 <Products products={products} onaddCart={handleaddtoCart}/>
+               </Route>
+              
+               <Route exact path="/cart">
+                <Cart cart={cart} />
+              </Route>
+
+            </Switch>
+         </div>
+        </Router>
     )
 }
 
