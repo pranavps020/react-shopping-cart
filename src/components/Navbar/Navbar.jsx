@@ -2,9 +2,12 @@ import React from 'react'
 import { AppBar, Toolbar, IconButton, Badge,Typography } from '@material-ui/core';
 import { ShoppingCart } from '@material-ui/icons';
 import useStyles from './Styles'
-import {Link} from 'react-router-dom';
+import {Link,useLocation} from 'react-router-dom';
+
+
 
 function Navbar({cart}) {
+  const location = useLocation();
   const classes = useStyles()
     return (
         <div>
@@ -14,6 +17,7 @@ function Navbar({cart}) {
             <img src='../images/cart.png' alt="commerce.js" height="25px" className={classes.image} /> Shoppy
           </Typography>
           <div className={classes.grow} />
+          {location.pathname === '/' && (
           <div className={classes.button}>
             <IconButton  component={Link} to="/cart" aria-label="Show cart items" color="inherit">
               <Badge badgeContent={cart.total_items} color="secondary">
@@ -21,6 +25,7 @@ function Navbar({cart}) {
               </Badge>
             </IconButton>
           </div>
+          )}
         </Toolbar>
       </AppBar>
         </div>
